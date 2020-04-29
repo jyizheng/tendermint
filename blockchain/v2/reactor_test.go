@@ -131,7 +131,6 @@ type testReactorParams struct {
 	genDoc      *types.GenesisDoc
 	privVals    []types.PrivValidator
 	startHeight int64
-	bufferSize  int
 	mockA       bool
 }
 
@@ -156,7 +155,7 @@ func newTestReactor(p testReactorParams) *BlockchainReactor {
 		sm.SaveState(db, state)
 	}
 
-	r := newReactor(state, store, reporter, appl, p.bufferSize, true)
+	r := newReactor(state, store, reporter, appl, true)
 	logger := log.TestingLogger()
 	r.SetLogger(logger.With("module", "blockchain"))
 
@@ -353,7 +352,6 @@ func TestReactorHelperMode(t *testing.T) {
 		genDoc:      genDoc,
 		privVals:    privVals,
 		startHeight: 20,
-		bufferSize:  100,
 		mockA:       true,
 	}
 
